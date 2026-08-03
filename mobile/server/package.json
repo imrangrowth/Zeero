@@ -1,0 +1,8 @@
+{
+  "name": "jarvis-server",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "start": "bun run index.ts"
+  }
+}

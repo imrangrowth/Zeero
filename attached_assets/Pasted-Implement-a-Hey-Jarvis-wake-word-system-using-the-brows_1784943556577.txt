@@ -1,0 +1,47 @@
+Implement a "Hey Jarvis" wake-word system using the browser's native 
+Web Speech API (SpeechRecognition / webkitSpeechRecognition).
+
+Requirements:
+- Run SpeechRecognition in continuous mode with interimResults enabled 
+  so it's always listening in the background.
+- On every transcript result (interim and final), check if it contains 
+  the phrase "hey jarvis" (case-insensitive, allow for minor STT variants 
+  like "hey jarvus" / "a jarvis").
+- When detected: stop the passive recognizer, play a short audio cue 
+  (or visual pulse in the UI), then start a second "active listening" 
+  recognition session that captures the user's actual command until 
+  a pause of ~1.5s of silence is detected.
+- Send the captured command text into the existing NEXUS-7 agent 
+  orchestration pipeline exactly as if it were typed input.
+- Handle recognition auto-restart: Chrome's SpeechRecognition times out 
+  after silence, so wrap it in an onend handler that automatically 
+  restarts continuous listening mode unless the user has muted it.
+- Add a UI toggle (mic on/off) and a visual state indicator: 
+  idle / listening-for-wake-word / active-listening / processing.
+- Handle permissions gracefully — request mic access on first use, 
+  show a clear error state if denied.
+- Note in code comments that Web Speech API is Chrome/Edge-only 
+  (no Firefox/Safari support) — flag this as a known limitation.
+Implement webcam vision for NEXUS-7 with two modes: on-demand snapshot 
+analysis and continuous motion-triggered analysis.
+
+Requirements:
+- Use getUserMedia() to access the webcam, render to a hidden <video> 
+  element, and draw frames to an offscreen <canvas> for capture.
+- On-demand mode: when the user asks "what do you see" (via voice or 
+  text), capture the current frame, encode as base64 JPEG, and send it 
+  as an image content block to the vision-capable model (Claude/GPT-4o) 
+  along with the user's question as text. Return the model's description 
+  as the agent's spoken/text response.
+- Continuous mode: sample a frame every 2-3 seconds. Before sending to 
+  the API, do a cheap pixel-diff against the previous frame in JS/Canvas 
+  to detect meaningful motion — only call the vision API when motion 
+  exceeds a threshold, to avoid unnecessary API cost.
+- Do NOT stream raw video to any model — no vision API takes true video 
+  input this way. Frame sampling is the correct approach.
+- Store recent frame descriptions in short-term memory/context so the 
+  agent can answer follow-ups like "what changed?" without re-sending 
+  the whole image.
+- Add a UI camera toggle and clear on-screen indicator when camera is 
+  active (privacy — user must always know when it's watching).
+- Handle permission denial and no-camera-available states gracefully.

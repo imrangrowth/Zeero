@@ -1,0 +1,2 @@
+- [JARVIS Web UI Architecture](jarvis-ui-arch.md) — single-file SPA in src/routes/index.tsx with 4 views (home/chat/memory/settings), no Tailwind in component
+- [JARVIS Backend Ports](jarvis-ports.md) — web app port 5000, mobile Express backend port 3001; vite.config.ts must ignore mobile/** to prevent EMFILE

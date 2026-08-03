@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "JARVIS",
+    "slug": "jarvis-nexus7",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "jarvis",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.imran.jarvis",
+      "infoPlist": {
+        "NSCameraUsageDescription": "JARVIS uses the camera to analyze your environment and assist with visual tasks.",
+        "NSMicrophoneUsageDescription": "JARVIS uses the microphone for voice commands and hands-free interaction.",
+        "NSPhotoLibraryUsageDescription": "JARVIS can analyze images from your photo library.",
+        "NSSpeechRecognitionUsageDescription": "JARVIS uses speech recognition to understand your voice commands."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#030712"
+      },
+      "package": "com.imran.jarvis",
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-camera",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "JARVIS needs access to your photos for visual analysis.",
+          "cameraPermission": "JARVIS uses camera for real-time visual assistance."
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "JARVIS uses the microphone for voice commands."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#030712"
+    }
+  }
+}
